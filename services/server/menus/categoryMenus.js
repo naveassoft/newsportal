@@ -34,7 +34,7 @@ export async function postCategoryMenus(req, res) {
     }
     delete req.body.userId;
 
-    const query = "INSERT INTO category SET ?";
+    const query = "INSERT INTO category SET ";
     const result = await postDocument(query, req.body);
     if (result.insertId > 0) {
       res.send({

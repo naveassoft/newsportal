@@ -18,7 +18,7 @@ export async function postNews(req, res) {
     req.body.image = req.files.image[0].filename;
     req.body.created_at = new Date();
 
-    const sql = "INSERT INTO news SET ?";
+    const sql = "INSERT INTO news SET ";
 
     const result = await postDocument(sql, req.body);
     if (result.insertId > 0) {

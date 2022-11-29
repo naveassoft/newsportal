@@ -194,7 +194,7 @@ async function updateNewsViews(req, res) {
       if (isExist.length) throw { message: "already added", status: 200 };
 
       const result = await postDocument(
-        "INSERT INTO news_viewers SET ?",
+        "INSERT INTO news_viewers SET ",
         req.body
       );
       if (result.insertId > 0) {
@@ -211,7 +211,7 @@ async function updateNewsViews(req, res) {
       const existed = await queryDocument(existsql);
       if (existed.length) throw { message: "already added", status: 200 };
 
-      const result = await postDocument("INSERT INTO visitors SET ?", req.body);
+      const result = await postDocument("INSERT INTO visitors SET ", req.body);
       if (result.insertId > 0) {
         res.send({ message: "Added" });
       } else {
@@ -225,7 +225,7 @@ async function updateNewsViews(req, res) {
 
 async function postCommentOnNews(req, res) {
   try {
-    const sql = "INSERT INTO comments SET ?";
+    const sql = "INSERT INTO comments SET ";
     const result = await postDocument(sql, req.body);
     if (result.insertId > 0) {
       res.send({ message: "Thank you for staying us." });

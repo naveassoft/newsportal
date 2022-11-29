@@ -55,6 +55,7 @@ const Details = () => {
         await getRelatedNews(result.category_name);
       } else throw result;
     } catch (error) {
+      store.setAlert({ msg: error.message, type: "error" });
       setError(true);
     }
     store.setLoading(false);
@@ -95,10 +96,12 @@ const Details = () => {
     try {
       const history = localStorage.getItem("history");
       if (history) {
-        const news = JSON.parse(history);
+        let news = JSON.parse(history);
         const isExist = news.find((id) => id === router.query.id);
         if (!isExist) {
           news.push(router.query.id);
+          news =
+            news.length > 20 ? news.slice(news.length - 20, news.length) : news;
           localStorage.setItem("history", JSON.stringify(news));
         }
       } else {

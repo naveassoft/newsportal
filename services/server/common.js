@@ -1,7 +1,7 @@
-import mysql from "mysql";
 import fs from "fs";
 import path from "path";
 import nodemailer from "nodemailer";
+import { mySql } from "./mysql";
 
 export const mailer = nodemailer.createTransport({
   service: "gmail",
@@ -11,37 +11,6 @@ export const mailer = nodemailer.createTransport({
   },
 });
 
-export function varifyOwner(res, user_id, callback, img) {
-  const sql = `SELECT id, user_role FROM user WHERE id = '${user_id}'`;
-  mySql.query(sql, (err, result) => {
-    if (err) {
-      if (img) deleteImage(img);
-      return errorHandler(res, { message: err.sqlMessage });
-    }
-    if (!result.length || result[0].user_role !== "owner") {
-      if (img) deleteImage(img);
-      return errorHandler(res, { message: "Forbidden" });
-    }
-    callback();
-  });
-}
-
-export function varifyUser(res, user_id, user_type, callback) {
-  let sql = "";
-  if (user_type === "vendor") {
-    sql = `SELECT id, user_role FROM vandor WHERE id = '${user_id}'`;
-  } else {
-    sql = `SELECT id, user_role FROM user WHERE id = '${user_id}'`;
-  }
-  mySql.query(sql, (err, result) => {
-    if (err) return errorHandler(res, { message: err.sqlMessage });
-    if (!result.length || !/owner|uploader|vendor/.test(result[0].user_role)) {
-      return errorHandler(res, { message: "Forbidden" });
-    }
-    callback();
-  });
-}
-
 export function deleteImage(image) {
   try {
     fs.unlinkSync(path.join(process.cwd(), "public", "assets", image));
@@ -50,38 +19,24 @@ export function deleteImage(image) {
   }
 }
 
-const mySql = mysql.createPool({
-  host: "localhost",
-  user: "mtvnews24_news",
-  password: "aI(Fm]cc8Ty6",
-  database: "mtvnews24_news",
-  connectionLimit: 190,
-});
-
-export const queryDocument = (query) => {
-  return new Promise((resolve, reject) => {
-    mySql.getConnection((err, res) => {
-      if (err) {
-        res?.release();
-        reject({ message: err.sqlMessage });
-      } else {
-        res.query(query, (err, result) => {
-          res.release();
-          if (err) reject({ message: err.sqlMessage });
-          else resolve(result);
-        });
-      }
-    });
-  });
+export const queryDocument = async (query) => {
+  const connection = await mySql();
+  const result = await connection.execute(query);
+  await connection.end();
+  return result[0];
 };
 
-export const postDocument = (query, doc) => {
-  return new Promise((resolve, reject) => {
-    mySql.query(query, doc, (err, result) => {
-      if (err) return reject({ message: err.sqlMessage });
-      resolve(result);
-    });
+export const postDocument = async (query, doc) => {
+  const connection = await mySql();
+  let data = "";
+  Object.entries(doc).forEach(([key, value]) => {
+    if (data) {
+      data += `, ${key} = "${value}"`;
+    } else data += `${key} = "${value}"`;
   });
+  const result = await connection.execute(query + data);
+  await connection.end();
+  return result[0];
 };
 
 export function forgotMailOpt(email, token) {

@@ -15,7 +15,7 @@ export async function postSubCategoryMenus(req, res) {
       res.send(409).send({ message: "Already added the sub category" });
       return;
     }
-    const query = `INSERT INTO sub_category SET ?`;
+    const query = `INSERT INTO sub_category SET `;
     const result = await postDocument(query, req.body);
     if (result.insertId > 0) {
       res.send({

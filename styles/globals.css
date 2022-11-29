@@ -20,6 +20,11 @@
   select {
     @apply border rounded py-2 px-4 outline-none text-lg w-full hover:border-gray-400;
   }
+  input,
+  select,
+  textarea {
+    @apply bg-white;
+  }
 }
 
 @layer components {

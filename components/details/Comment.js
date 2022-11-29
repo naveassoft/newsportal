@@ -40,7 +40,7 @@ const Comment = ({ newsId, setUpdate, comments }) => {
   }
 
   return (
-    <section className='my-10'>
+    <section className='my-10 print:hidden'>
       <form
         className='bg-slate-200 rounded shadow py-3 px-3'
         onSubmit={(e) => handleSubmit(e)}

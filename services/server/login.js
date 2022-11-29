@@ -56,13 +56,14 @@ export async function loginUser(req, res) {
         }
         const hashed = await bcrypt.hash(req.body.password, 10);
         req.body.password = hashed;
-        const sql = "INSERT INTO user ?";
-        const result = await queryDocument(sql, req.body);
-        delete result[0].password;
-        const token = jwt.sign({ ...result[0] }, process.env.JWT_SECRET, {
+        const sql = "INSERT INTO user ";
+        const result = await postDocument(sql, req.body);
+        delete req.body.password;
+        req.body.user_role = "user";
+        const token = jwt.sign(req.body, process.env.JWT_SECRET, {
           expiresIn: "3d",
         });
-        res.send({ user: result[0], token });
+        res.send({ user: req.body, token });
       } else {
         const sql = `SELECT * FROM user WHERE email = '${req.body.email}'`;
         const result = await queryDocument(sql);
@@ -98,7 +99,6 @@ export async function signUpUser(req, res) {
       const hashed = await bcrypt.hash(req.body.password, 10);
       const query = `UPDATE user SET password='${hashed}' WHERE id=${req.body.id}`;
       const user = await queryDocument(query);
-      console.log(user);
       if (user.changedRows > 0) {
         const sql = `SELECT * FROM user WHERE id = '${req.body.id}'`;
         const result = await queryDocument(sql);
@@ -168,7 +168,7 @@ async function varifyEmail(req, res) {
           delete result.exp;
           const hashedPassword = await bcrypt.hash(result.password, 10);
           result.password = hashedPassword;
-          const sql = "INSERT INTO user SET ?";
+          const sql = "INSERT INTO user SET ";
           const user = await postDocument(sql, result);
           if (user.insertId > 0) {
             const sql = `SELECT * FROM user WHERE id = '${user.insertId}'`;

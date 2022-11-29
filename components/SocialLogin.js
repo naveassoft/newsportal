@@ -56,7 +56,6 @@ const SocialLogin = ({ setError }) => {
             type='button'
             className='btn btn-primary'
           >
-            <img className='h-8' src='/google.png' alt='' />
             <span>Google</span>
           </button>
         )}

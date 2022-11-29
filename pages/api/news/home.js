@@ -117,7 +117,7 @@ async function getMostReadedNews(req, res) {
   try {
     const limit = parseInt(req.query.limit) || 12;
     const page = parseInt(req.query.page || 0) * limit;
-    const sql = `SELECT news.* FROM news_viewers as v INNER JOIN news ON v.news_id = news.id ORDER BY news.created_at LIMIT ${page}, ${limit}`;
+    const sql = `SELECT DISTINCT news.* FROM news_viewers as v INNER JOIN news ON v.news_id = news.id ORDER BY news.created_at LIMIT ${page}, ${limit}`;
     const result = await queryDocument(sql);
     res.send(result);
   } catch (error) {

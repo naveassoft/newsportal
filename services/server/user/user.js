@@ -22,7 +22,7 @@ export async function addUser(req, res) {
 
     const hashed = await bcrypt.hash(req.body.password, 10);
     req.body.password = hashed;
-    const sql = "INSERT INTO user SET ?";
+    const sql = "INSERT INTO user SET ";
     const result = await postDocument(sql, req.body);
     if (result.insertId > 0) {
       res.send({ message: "Addedd successfully" });
@@ -56,12 +56,6 @@ export async function updateUser(req, res) {
     ]);
     if (error) throw { message: "Error occured when file uploading" };
 
-    //user varify;
-    if (!req.body.user_id) throw { message: "user unathenticated!" };
-    const varify = await userVarification(req.body.user_id);
-    if (!varify) throw { message: "user unathenticated!" };
-    delete req.body.user_id; //till;
-
     if (req.query.profile) {
       let sql = "";
       if (req.files.profile) {
@@ -75,6 +69,12 @@ export async function updateUser(req, res) {
       }
       res.send({ message: "Updated successfully" });
     } else {
+      //user varify;
+      if (!req.body.user_id) throw { message: "user unathenticated!" };
+      const varify = await userVarification(req.body.user_id);
+      if (!varify) throw { message: "user unathenticated!" };
+      delete req.body.user_id; //till;
+
       const sql = `UPDATE user SET user_role = '${req.body.user_role}' WHERE id = '${req.body.id}'`;
       await queryDocument(sql);
       res.send({ message: "Updated successfully" });
