@@ -3,7 +3,7 @@ import { multipleBodyParser } from "../multer";
 import { postDocument, queryDocument } from "../common";
 import fs from "fs";
 import path from "path";
-import bcrypt from "bcrypt";
+import bcrypt from "bcryptjs";
 
 export async function addUser(req, res) {
   try {

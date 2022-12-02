@@ -48,7 +48,7 @@ export function forgotMailOpt(email, token) {
     <div class="section2">
       <h1>Forgot password ?</h1>
       <p class="mb-50">You/someone try to reset your account password. Here is the link to reset password.</p>
-      <center><a href="http://mtvnews24.com/forgotpassword?token=${token}" class="confirmBtn">Reset Now</a></center>
+      <center><a href="http://localhost:3000/forgotpassword?token=${token}" class="confirmBtn">Reset Now</a></center>
       <p>If you have any question , just reply to this email, we're always happy to help out</p>
       <p class="mt-50">Cheers<br>The Team</p>
     </div>
@@ -67,7 +67,7 @@ export function varifyEmailOpt(email, token) {
         Thank you for signig up with Us! We hope you enjoy your time with us.
         Check your account and update your profile.
       </p>
-      <center><a href="http://mtvnews24.com/varifyemail?token=${token}" class="confirmBtn">Verify Now</a></center>
+      <center><a href="http://localhost:3000/varifyemail?token=${token}" class="confirmBtn">Verify Now</a></center>
       <p class="mt-50">
         if you have any question just reply to this email, We're always happy
         to help out.

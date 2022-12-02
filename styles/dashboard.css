@@ -229,6 +229,9 @@
   .password-page-loading {
     @apply text-center pt-20 text-xl;
   }
+  .comment-item {
+    @apply mb-5 border-b rounded pb-3 flex justify-between items-center pr-5;
+  }
 }
 
 .varification-container,

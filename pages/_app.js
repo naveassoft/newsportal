@@ -1,9 +1,22 @@
-import StoreProvider from "../components/context/StoreProvider";
-import LoginRegister from "../components/common/LoginRegister";
-import Footer from "../components/common/footer/Footer";
-import AdminRoute from "../components/context/AdminRoute";
+import dynamic from "next/dynamic";
+const SideMenu = dynamic(() => import("../components/common/SideMenu"), {
+  ssr: false,
+});
+const AdminRoute = dynamic(() => import("../components/context/AdminRoute"), {
+  ssr: false,
+});
+const StoreProvider = dynamic(
+  () => import("../components/context/StoreProvider"),
+  { ssr: false }
+);
+const LoginRegister = dynamic(
+  () => import("../components/common/LoginRegister"),
+  { ssr: false }
+);
+const Footer = dynamic(() => import("../components/common/footer/Footer"), {
+  ssr: false,
+});
 import useStore from "../components/context/useStore";
-import SideMenu from "../components/common/SideMenu";
 import GotoTop from "../components/common/GotoTop";
 import Spinner from "../components/common/Spinner";
 import Alert from "../components/common/Alert";

@@ -15,6 +15,10 @@ export default async function handler(req, res) {
       updateNewsViews(req, res);
       break;
 
+    case "DELETE":
+      deleteComment(req, res);
+      break;
+
     default:
       res.status(404).send({ message: "not found" });
       break;
@@ -232,5 +236,20 @@ async function postCommentOnNews(req, res) {
     } else throw { message: "unable to post comment, please try again" };
   } catch (error) {
     errorHandler(res, { msg: error?.message, status: error?.status });
+  }
+}
+
+async function deleteComment(req, res) {
+  try {
+    const query = `SELECT id FROM comments WHERE id = ${req.body.id} AND user_id = ${req.body.user_id}`;
+    const isUser = await queryDocument(query);
+    if (!isUser.length) throw { message: "Forbidden", status: 401 };
+    const sql = `DELETE FROM comments WHERE id = ${req.body.id}`;
+    const result = await queryDocument(sql);
+    if (result.affectedRows > 0) {
+      res.send({ message: "Deleted successfully" });
+    } else throw { message: "unable to delete" };
+  } catch (error) {
+    errorHandler(res, error);
   }
 }

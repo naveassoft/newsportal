@@ -109,41 +109,41 @@ const LoginRegister = () => {
   return (
     <div
       onClick={() => store?.setShowLoginRegister(false)}
-      className='login-register-container'
+      className="login-register-container"
     >
       <form
         onClick={(e) => e.stopPropagation()}
         onSubmit={(e) => handleSubmit(e)}
-        className='login-registation'
+        className="login-registation"
       >
         <div
           onClick={() => store?.setShowLoginRegister(false)}
-          className='close-btn'
+          className="close-btn"
         >
           <FontAwesomeIcon icon={faClose} />
         </div>
-        <h3 className='mb-5'>Please {login ? "Login" : "Register"}</h3>
+        <h3 className="mb-5">Please {login ? "Login" : "Register"}</h3>
 
         {!login && (
           <input
             required
-            name='name'
-            type='text'
+            name="name"
+            type="text"
             onChange={(e) => handleChange(e)}
-            placeholder='Enter your full name'
+            placeholder="Enter your full name"
           />
         )}
         <input
           required
-          name='email'
-          type='email'
+          name="email"
+          type="email"
           ref={emailRef}
           onChange={(e) => handleChange(e)}
-          placeholder='Enter your email'
+          placeholder="Enter your email"
         />
-        <div className='relative w-full'>
+        <div className="relative w-full">
           <input
-            name='password'
+            name="password"
             required
             onChange={(e) => handleChange(e)}
             type={showPassword ? "text" : "password"}
@@ -151,7 +151,7 @@ const LoginRegister = () => {
           />
           <div
             onClick={() => setShowPassword((prev) => !prev)}
-            className='absolute top-2/4 right-5 -translate-y-2/4 cursor-pointer'
+            className="absolute top-2/4 right-5 -translate-y-2/4 cursor-pointer"
           >
             {showPassword ? (
               <FontAwesomeIcon icon={faEye} />
@@ -163,25 +163,25 @@ const LoginRegister = () => {
 
         {!login && (
           <input
-            name='rePassword'
+            name="rePassword"
             required
             onChange={(e) => handleChange(e)}
-            type='password'
-            placeholder='Confirm password'
+            type="password"
+            placeholder="Confirm password"
           />
         )}
 
         {/* showing forget password */}
         <p
           onClick={ForgotPassword}
-          className='cursor-pointer text-purple-500 text-left w-full'
+          className="cursor-pointer text-purple-500 text-left w-full"
         >
           Forgot password?
         </p>
         {/* showing error */}
-        <p className='text-red-400'>{error}</p>
+        <p className="text-red-400">{error}</p>
 
-        <button disabled={loading} className='custom-btn' type='submit'>
+        <button disabled={loading} className="custom-btn" type="submit">
           {login ? "Login" : "Register"}
         </button>
 
@@ -191,7 +191,7 @@ const LoginRegister = () => {
           {login ? "New here?" : "Already have account"}{" "}
           <span
             onClick={() => setLogin((prev) => !prev)}
-            className='underline text-blue-400 cursor-pointer'
+            className="underline text-blue-400 cursor-pointer"
           >
             {login ? "Create an account" : "Login here"}
           </span>

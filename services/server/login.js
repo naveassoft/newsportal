@@ -5,7 +5,7 @@ import {
   queryDocument,
   varifyEmailOpt,
 } from "./common";
-import bcrypt from "bcrypt";
+import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
 
 export async function getUser(req, res) {

@@ -158,8 +158,8 @@ const Details = () => {
 
   if (!news) return null;
   return (
-    <div className='mb-10'>
-      <TopPart page='details' />
+    <div className="mb-10">
+      <TopPart page="details" />
       <TopMenus />
       <Breakingnews />
 
@@ -170,16 +170,16 @@ const Details = () => {
         />
       )}
 
-      <section className='details-page-content-wrapper'>
-        <section className='col-span-3 md:col-span-2 print:col-span-3'>
-          <section className='news-details-wrapper'>
+      <section className="details-page-content-wrapper">
+        <section className="col-span-3 md:col-span-2 print:col-span-3">
+          <section className="news-details-wrapper">
             {/* top part */}
-            <div className='top-part'>
-              <p className='space-x-1'>
+            <div className="top-part">
+              <p className="space-x-1">
                 <FontAwesomeIcon icon={faClock} />
                 <span>18 October, 2022 12:02</span>
               </p>
-              <div className='space-x-5'>
+              <div className="space-x-5">
                 <button onClick={handleCopyLink}>
                   <FontAwesomeIcon icon={faLink} />
                   <span>{linkCopy ? "Copied!" : "Copy Link"}</span>
@@ -190,7 +190,7 @@ const Details = () => {
                 </button>
 
                 <FacebookShareButton url={"https://navieasoft.com/"}>
-                  <p className='share'>
+                  <p className="share">
                     <FontAwesomeIcon icon={faFacebook} />
                     <span>Share</span>
                   </p>
@@ -199,45 +199,45 @@ const Details = () => {
             </div>
 
             {/* news details */}
-            <div className='news-details'>
+            <div className="news-details">
               <h3>{news.headline}</h3>
-              <p className='text-lg my-5 space-x-2'>
-                <FontAwesomeIcon className='text-gray-600' icon={faEdit} />
+              <p className="text-lg my-5 space-x-2">
+                <FontAwesomeIcon className="text-gray-600" icon={faEdit} />
                 <span>Online Reporter</span>
               </p>
               <img
-                className='object-contain'
+                className="object-contain"
                 src={`/assets/${news.image}`}
-                alt='news image'
+                alt="news image"
               />
 
               <Markup
                 content={news.body}
-                className='text-justify mt-10 text-xl'
+                className="text-justify mt-10 text-xl"
               />
 
-              <p className='mt-10 text-xl'>
+              <p className="mt-10 text-xl">
                 {siteInfo?.name}/{news.editor_name}
               </p>
 
-              <div className='social-icons'>
+              <div className="social-icons">
                 <TwitterShareButton url={"https://navieasoft.com/"}>
-                  <a className='text-blue-400'>
+                  <a className="text-blue-400">
                     <FontAwesomeIcon icon={faTwitter} />
                   </a>
                 </TwitterShareButton>
                 <LinkedinShareButton url={"https://navieasoft.com/"}>
-                  <a className='text-[#0e76a8]'>
+                  <a className="text-[#0e76a8]">
                     <FontAwesomeIcon icon={faLinkedin} />
                   </a>
                 </LinkedinShareButton>
                 <FacebookShareButton url={"https://navieasoft.com/"}>
-                  <a className='text-blue-600'>
+                  <a className="text-blue-600">
                     <FontAwesomeIcon icon={faFacebook} />
                   </a>
                 </FacebookShareButton>
                 <EmailShareButton
-                  subject='This the subject of the email'
+                  subject="This the subject of the email"
                   url={"https://navieasoft.com/"}
                 >
                   <a>
@@ -264,41 +264,41 @@ const Details = () => {
             )}
 
             {/* Realated news */}
-            <section className='print:hidden'>
-              <b className='mb-4 block'>Related News:</b>
-              <div className='related-news-wrapper'>
+            <section className="print:hidden">
+              <b className="mb-4 block">Related News:</b>
+              <div className="related-news-wrapper">
                 {relatedNews && relatedNews.length ? (
                   relatedNews.map((news) => (
                     <Link
                       href={`/details?category=${news.category}&id=${news.id}`}
                       key={news.id}
                     >
-                      <a className='news'>
+                      <a className="news">
                         <img
-                          className='object-cover object-center rounded-t'
+                          className="object-cover object-center rounded-t"
                           src={`/assets/${news.image}`}
-                          alt=''
+                          alt=""
                         />
-                        <p className='font-medium px-2 pb-3'>{news.headline}</p>
+                        <p className="font-medium px-2 pb-3">{news.headline}</p>
                       </a>
                     </Link>
                   ))
                 ) : (
                   <div>
-                    <p className='font-medium text-gray-600 mt-5 text-center'>
+                    <p className="font-medium text-gray-600 mt-5 text-center">
                       No data
                     </p>
                   </div>
                 )}
               </div>
-              <div className='flex justify-end mt-5'>
+              <div className="flex justify-end mt-5">
                 <button
                   disabled={loading}
                   onClick={() => {
                     setPage((prev) => prev + 1);
                     getRelatedNews(news.category_name);
                   }}
-                  className='btn btn-primary'
+                  className="btn btn-primary"
                 >
                   Load More
                 </button>
